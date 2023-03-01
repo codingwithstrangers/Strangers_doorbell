@@ -1,0 +1,52 @@
+What: We want to make a old iphone into a ring doorbell, that can record, listen, talk and perform task along the lines
+of securtity
+
+Who: I am sure their is a app for this but fux em i can make my own
+
+Why: My knuckle hurts and its cool
+
+Where: the big crib!
+
+Skill: app development? maybe python, Chashtag, 
+
+program: MaUi, 
+
+Roadblocks: apple securtity / can we do this on an iphone5
+
+Feature
+-gps track
+-recording 24/7
+-top flight uploading 24/7 storage via server
+-allow me to talk and listen
+-motion sensor
+-facial detection (open cv via Shegotmad)
+-security of the data (make sure we cant be hacked)
+
+Back up plan for when I get tired
+-buy andriod phone
+-make a website (which we are doing)
+-Flask (practice-Done)
+-Django (is off the list to much bs)
+
+prompt for chat gpt
+simple flask app that allows users on local network to vote on it,
+and saves all responses to a txt file. You can also click to "results"
+page.
+
+
+practice shit
+# rendering basic webpages using jinja to understand how data you want makes its way into your templateapp = Flask(__name__)
+
+# @app.route('/')
+# def hello_Stranger():
+#     return 'Hello you Strangers another test!!'
+
+# if __name__ == '__main__':
+#     app.run()
+
+
+
+Plan of action
+-Make a website 1st then mobile app
+*making the website (JS/css/html)
+*making front first (everyone is giving me shit abouthow hard this will be)

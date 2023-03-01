@@ -1,0 +1,26 @@
+from flask import Flask, request, render_template
+
+app = Flask(__name__)
+
+@app.route("/", methods=["GET", "POST"])
+def index():
+    if request.method == "POST":
+        option = request.form["option"]
+        with open("votes.txt", "a") as f:
+            f.write(option + "\n")
+        return "Thanks for voting!"
+    return render_template("index.html")
+
+@app.route("/results")
+def results():
+    options = ["Option 1", "Option 2", "Option 3"]
+    counts = {option: 0 for option in options}
+    with open("votes.txt") as f:
+        for line in f:
+            option = line.strip()
+            if option in counts:
+                counts[option] += 1
+    return render_template("results.html", options=options, counts=counts)
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0")
