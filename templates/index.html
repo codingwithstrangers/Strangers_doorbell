@@ -7,9 +7,11 @@
 </head>
 <body>
     <!-- Create a video element for displaying the webcam feed -->
-    <video id="video" width="640" height="480" autoplay></video>
+    <video id="video" width="640" height="480"></video>
+    <button id="play-button">Play Video</button>
     <script>
         var video = document.querySelector("#video");
+        var playButton = document.querySelector("#play-button");
 
         // Check if the user's browser supports the MediaDevices.getUserMedia() API
         if (navigator.mediaDevices.getUserMedia) {
@@ -17,11 +19,18 @@
             .then(function(stream) {
                 // Set the source of the video element to the webcam stream
                 video.srcObject = stream;
+                // Enable the play button once the stream is loaded
+                playButton.disabled = false;
             })
             .catch(function(err) {
                 console.log("Error: " + err);
             });
         }
+
+        // Add an event listener to the play button that starts playing the video
+        playButton.addEventListener('click', function() {
+            video.play();
+        });
 
         // Continuously capture frames from the webcam and send them to the server
         setInterval(function() {

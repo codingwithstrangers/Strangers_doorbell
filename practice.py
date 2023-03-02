@@ -11,7 +11,7 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-# Define the route for receiving the video feed data
+print(" Define the route for receiving the video feed data")
 @app.route('/video_feed', methods=['POST'])
 def video_feed():
     # Get the video stream from the request
@@ -21,12 +21,14 @@ def video_feed():
     image = np.frombuffer(data, dtype=np.uint8) # Convert the decoded data to a NumPy array
     image = cv2.imdecode(image, cv2.IMREAD_COLOR) # Decode the JPEG image
 
+    print('this is working')
     # Save the JPEG frame to disk with a unique filename based on the current timestamp
-    filename = 'C:\\Users\\Huvo\\Desktop\\webcamer\\images\\' + f'frame_{time.time()}.jpg'
+    filename = "./practiceimages/" + f'frame_{time.time()}.jpg'
     cv2.imwrite(filename, image)
 
     return 'OK'
 
 if __name__ == '__main__':
     # Start the Flask development server
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True, ssl_context='adhoc')
+    print('Stranger danger')
