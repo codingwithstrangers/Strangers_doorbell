@@ -3,6 +3,8 @@ import cv2
 import base64
 import numpy as np
 import time
+import os 
+import atexit
 
 app = Flask(__name__)
 
@@ -27,6 +29,13 @@ def video_feed():
     cv2.imwrite(filename, image)
 
     return 'OK'
+
+def delete_images():
+    # this will delete all files in folder practiceimage
+    for filename in os.listdir('practiceimages'):
+        if filename.endswith('jpg'):
+            os.remove(os.path.join('practiceimages',filename))
+atexit.register(delete_images)
 
 if __name__ == '__main__':
     # Start the Flask development server
