@@ -16,6 +16,11 @@
         var context = canvas.getcontext('2d');
         var constraints = {Audio:false, video: true};
 
+        // Add an event listener to the play button that starts playing the video
+        playButton.addEventListener('click', function() {
+            video.play();
+        });
+
         navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
           video.srcObject = stream;
         }).catch(function(error) {

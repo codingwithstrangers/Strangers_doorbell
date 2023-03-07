@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Webcam Video Stream</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Include the jQuery library for making AJAX requests -->
+</head>
+<body>
+    <!-- Create a video element for displaying the webcam feed -->
+    <video id="video" width="640" height="480"></video>
+    <button id="play-button">Play Video</button>
+    <script>
+        var video = document.querySelector("#video");
+        var playButton = document.querySelector("#play-button");
+
+        // Check if the user's browser supports the MediaDevices.getUserMedia() API
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(stream) {
+                // Set the source of the video element to the webcam stream
+                video.srcObject = stream;
+                // Enable the play button once the stream is loaded
+                playButton.disabled = false;
+            })
+            .catch(function(err) {
+                console.log("Error: " + err);
+            });
+        }
+
+        // Add an event listener to the play button that starts playing the video
+        playButton.addEventListener('click', function() {
+            video.play();
+        });
+
+        // Continuously capture frames from the webcam and send them to the server
+        setInterval(function() {
+            // Create a canvas element for drawing the video frame
+            var canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            var context = canvas.getContext('2d');
+            // Draw the video frame onto the canvas
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            // Convert the canvas to a JPEG image and send it to the server with a POST request
+            var dataURL = canvas.toDataURL('image/jpeg');
+            $.post('/video_feed', { data: dataURL });
+        }, 100); // Set the interval between capturing frames to 100 milliseconds
+    </script>
+</body>
+</html>

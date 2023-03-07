@@ -1,0 +1,166 @@
+<style>
+    body {
+        background-color: rgb(37, 23, 60);
+    }
+
+    .subscribe-button {
+        background-color: rgb(5, 60, 34);
+        color: white;
+        border: none;
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+        font-size: 20px;
+        cursor: pointer;
+        margin-right: 8px;
+        margin-bottom: 30px;
+        margin-top: 30px;
+        transition: all 0.3s ease-in;
+    }
+
+    .subscribe-button:hover {
+        opacity: 0.8;
+    }
+
+    .subscribe-button:active {
+        background-color: rgb(54, 226, 54);
+
+    }
+
+    .join-button {
+        background-color: rgb(10, 50, 93);
+        color: white;
+        border: none;
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+        font-size: 20px;
+        cursor: pointer;
+        margin-right: 8px;
+        margin-bottom: 30px;
+
+    }
+
+    .join-button:hover {
+        opacity: 0.8;
+        transition: all 0.3s ease-in;
+    }
+
+    .join-button:active {
+        background-color: rgb(13, 146, 255);
+    }
+
+    .pix-button {
+        background-color: rgb(182, 161, 24);
+        color: white;
+        border: none;
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+        font-size: 20px;
+        cursor: pointer;
+        margin-right: 8px;
+        margin-bottom: 30px;
+        transition: all 0.3s ease-in;
+
+    }
+
+    .pix-button:hover {
+        opacity: 0.8;
+    }
+
+    .pix-button:active {
+        background-color: rgb(255, 224, 26);
+    }
+
+</style>
+
+<style>
+    .video-text1 {
+        font-family: fantasy;
+        font-size: 20px;
+        text-align: left;
+        margin-left: 5px;
+
+    }
+
+    .video-text2 {
+        font-family: fantasy;
+        font-size: 20px;
+        text-align: left;
+        margin-left: 5px;
+        margin-top: -5px;
+
+    }
+
+
+    .videocontainer {
+        display: flex;
+
+
+    }
+    
+    .timelinecontainer {
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    .textcontainer {
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        margin-left: 15px;
+        border: 2px;
+
+    }
+
+    .videoview {
+        width: 700px;
+        height: 400px;
+        border: solid;
+
+    }
+
+    .timelineview {
+        width: 700px;
+        height: 50px;
+        border: solid;
+        margin-top: 20px;
+
+
+    }
+
+    .textbox {
+        width: 100px;
+        height: 100px;
+        border: solid;
+
+    }
+</style>
+
+
+<div class="videocontainer">
+    <div class="timelinecontainer">
+    <div class="videoview"></div>
+    <div class="timelineview"></div>
+</div>
+    <div class="container">
+        <button class="Subscribe-button">Talk</button>
+        <button class="join-button">Listen</button>
+        <button class="Pix-button">Pic</button>
+
+
+        <div class="textcontainer">
+            <div class="textbox">
+                <p class="video-text1">Location</p>
+                <p class="video-text2">Time</p>
+            </div>
+        </div>
+    </div>
+</div>

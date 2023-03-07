@@ -49,4 +49,8 @@ practice shit
 Plan of action
 -Make a website 1st then mobile app
 *making the website (JS/css/html)
-*making front first (everyone is giving me shit abouthow hard this will be)
+*making front first (everyone is giving me shit about how hard this will be edit Chat was right)
+-We know the ios 11.03 will work, we can pull jpg auido not tested
+Phase 2
+*get audio and video to work
+*make the button and browser link

@@ -9,7 +9,7 @@ app = Flask(__name__)
 # Define the route for the home page
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('button.html')
 
 print(" Define the route for receiving the video feed data")
 @app.route('/video_feed', methods=['POST'])

@@ -1,4 +1,4 @@
-<style>
+
     body {
         background-color: rgb(37, 23, 60);
     }
@@ -72,9 +72,9 @@
     .pix-button:active {
         background-color: rgb(255, 224, 26);
     }
-</style>
 
-<style>
+
+
     .video-text1 {
         font-family: fantasy;
         font-size: 20px;
@@ -141,25 +141,4 @@
         border: solid;
 
     }
-</style>
 
-
-<div class="videocontainer">
-    <div class="timelinecontainer">
-    <div class="videoview"></div>
-    <div class="timelineview"></div>
-</div>
-    <div class="container">
-        <button class="Subscribe-button">Talk</button>
-        <button class="join-button">Listen</button>
-        <button class="Pix-button">Pic</button>
-
-
-        <div class="textcontainer">
-            <div class="textbox">
-                <p class="video-text1">Location</p>
-                <p class="video-text2">Time</p>
-            </div>
-        </div>
-    </div>
-</div>
