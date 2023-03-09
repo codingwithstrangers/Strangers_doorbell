@@ -15,12 +15,13 @@ app = Flask(__name__)
 def index():
     return render_template('button.html')
 
-
+        
 print(" Define the route for receiving the video feed data")
 
 
 @app.route('/video_feed', methods=['POST'])
 def video_feed():
+    print('this is a test if the video is working video feed')
     # Get the video stream from the request
     # Extract the image data from the request's data field
     data_url = request.values['data']
@@ -57,15 +58,19 @@ def video_feed():
 #             os.remove(os.path.join('practiceimages', filename))
 # atexit.register(delete_images)
 
-print('video downloaded')
+
 @app.route('/download_video')
 def download_video():
+    print('video downloaded')
     #read whole video file (does this work durning buffering)
     video_bytes = b''
-    for filename in os.listdir('practicevideos'):
-        if filename.endswith('mp4'):
-            with open (os.path.join('praticevideos',filename), 'rb') as f:
-                video_bytes += f.read()
+    filename = "Stuff.mp4"
+    # for filename in os.listdir('practicevideos'):
+    #     if filename.endswith('mp4'):
+    print('did the file create')
+    with open (os.path.join('praticevideos',filename), 'rb') as f:
+        video_bytes += f.read()
+    # return "ok"
 
 
 if __name__ == '__main__':
