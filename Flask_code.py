@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('button.html')
+    return render_template('index.html')
 
 
 print(" Define the route for receiving the video feed data")
@@ -33,20 +33,43 @@ def video_feed():
 
     print('this is working')
     # Save the JPEG frame to disk with a unique filename based on the current timestamp
-    filename = "./practiceimages/" + f'frame_{time.time()}.jpg'
+    filename = "./practicevideos/" + f'frame_{time.time()}.jpg'
     cv2.imwrite(filename, image)
 
     return 'OK'
 
+# def create_video():
+#     #read all the Jpgs
+#     filenames = [os.path.join('practicevideos', f) for f in os.os.listdir('practicevideos')if f.endswith('.jpg')]
+#     #sort images by by ttime stamp (line 56 for now)
+#     sorted_filenames = sorted(filenames)
+#     #read the first frame
+#     frame = cv2.imread(filenames[0])
+#     height, width, layers = frame.shape
+#     #creat video you need to source then output it (this is so dumb and it better work)
+#     fourcc = cv2.VideoWriter_fourcc(*"mp4") 
+#     video = cv2.VideoWriter('output.mp4', fourcc,30, (width, height))
+#     #make the Loop
+#     for filename in filenames:
+#         frame = cv2.imread(filename)
+#         video.write(frame)
 
-def delete_images():
-    # this will delete all files in folder practiceimage
-    for filename in os.listdir('practiceimages'):
-        if filename.endswith('jpg'):
-            os.remove(os.path.join('practiceimages', filename))
+#     #call the video
+#     video.release()
+
+#     #prove this shit works by making calll that 
+#     atexit.register(create_video)
 
 
-atexit.register(delete_images)
+
+# def delete_images():
+#     # this will delete all files in folder practiceimage
+#     for filename in os.listdir('practicevideos'):
+#         if filename.endswith('jpg'):
+#             os.remove(os.path.join('practicevideos', filename))
+
+
+# atexit.register(delete_images)
 
 if __name__ == '__main__':
     # Start the Flask development server
