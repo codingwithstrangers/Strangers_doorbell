@@ -1,0 +1,108 @@
+
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Live Stream</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  </head>
+  <body>
+    <!-- Video element to display the webcam stream -->
+    <video id="video" width="640" height="480"></video>
+    <!-- Button to start playing the video and recording -->
+    <button id="play-button">Play Video</button>
+    <script>
+      var video = document.querySelector("#video");
+      var playButton = document.querySelector("#play-button");
+      // MediaRecorder object for recording audio
+      var mediaRecorder;
+      // Array to store recorded audio data chunks
+      var recordedChunks = [];
+
+      // Check if the user's browser supports the getUserMedia API
+      if (navigator.mediaDevices.getUserMedia) {
+        // Request access to the user's webcam and microphone
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+          .then(function(stream) {
+            // Set the source of the video element to the webcam stream
+            video.srcObject = stream;
+            // Enable the play button once the stream is loaded
+            playButton.disabled = false;
+            // Initialize the MediaRecorder with the audio stream
+            mediaRecorder = new MediaRecorder(stream);
+            // Set the event handler for when data is available from the MediaRecorder
+            mediaRecorder.ondataavailable = handleDataAvailable;
+          })
+          .catch(function(err) {
+            console.log("Error: " + err);
+          });
+      }
+
+      // Event listener to start playing the video and recording
+      playButton.addEventListener('click', function() {
+        video.play();
+        mediaRecorder.start();
+        startRecording();
+      });
+
+      // Event handler for when data is available from the MediaRecorder
+      function handleDataAvailable(event) {
+        if (event.data.size > 0) {
+          recordedChunks.push(event.data);
+        }
+      }
+
+      // Function to start recording and periodically send data to the server
+      function startRecording() {
+        setInterval(function() {
+          // Create a canvas element for drawing the video frame
+          var canvas = document.createElement('canvas');
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          var context = canvas.getContext('2d');
+          // Draw the video frame onto the canvas
+          context.drawImage(video, 0, 0, canvas.width, canvas.height);
+          // Convert the canvas to a JPEG image
+          var dataURL = canvas.toDataURL('image/jpeg');
+          // Send the image data to the server with a POST request
+          $.post('/video_feed', { data: dataURL });
+
+          // Check if the MediaRecorder is currently recording
+          if (mediaRecorder.state === 'recording') {
+            // Stop the MediaRecorder
+            mediaRecorder.stop();
+            // Set the event handler for when the MediaRecorder stops
+            mediaRecorder.onstop = function() {
+              // Create a Blob from the recorded audio data
+              var blob = new Blob(recordedChunks, { type: 'audio/wav' });
+              // Create a FormData object to send the audio data to the server
+              var formData = new FormData();
+              formData.append('audio_data', blob);
+
+              // Send the audio data to the server with an AJAX request
+              $.ajax({
+                url: '/audio_feed',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                  console.log('Audio saved successfully: ' + response);
+                },
+                error: function(err) {
+                  console.log('Error saving audio: ' + err);
+                }
+              });
+
+              // Clear the recorded audio data
+              recordedChunks = [];
+              // Start the MediaRecorder again
+              mediaRecorder.start();
+            }
+          }
+        }, 10000); // Set the interval between capturing frames and audio to 10000 milliseconds (10 seconds)
+      }
+    </script>
+  </body>
+</html>

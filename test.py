@@ -38,29 +38,36 @@ import atexit
 
 #     return 'OK'
 
-def create_video():
-    #read all the Jpgs
-    filenames = [os.path.join('practicevideos', f) for f in os.listdir('practicevideos')if f.endswith('.jpg')]
-    #sort images by by ttime stamp (line 56 for now)
-    sorted_filenames = sorted(filenames)
-    #read the first frame
-    frame = cv2.imread(filenames[0])
-    height, width, layers = frame.shape
-    #creat video you need to source then output it (this is so dumb and it better work)
-    fourcc = cv2.VideoWriter_fourcc(*"mp4v") 
-    video = cv2.VideoWriter('output.mp4', fourcc,30, (width, height))
-    #make the Loop
-    for filename in filenames:
-        frame = cv2.imread(filename)
-        video.write(frame)
+# 
 
-    #call the video
-    video.release()
-    return "ok"
-    #prove this shit works by making calll that 
-    atexit.register(create_video)
-create_video()
+import cv2
+import os
 
+# Set the directory containing the frames
+frames_dir = r'F:\Coding with Strangers\topflightsecurity\practicevideos'
+
+# Set the output video file name and path
+output_path = r'F:\Coding with Strangers\topflightsecurity\video.mp4'
+
+# Get the frame dimensions from the first frame
+frame1_path = os.path.join(frames_dir, os.listdir(frames_dir)[0])
+frame1 = cv2.imread(frame1_path)
+height, width, channels = frame1.shape
+
+# Create a VideoWriter object to write the video
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+out = cv2.VideoWriter(output_path, fourcc,30.0, (width, height))
+
+# Loop through each frame in the directory and write it to the video
+for filename in sorted(os.listdir(frames_dir)):
+    if filename.endswith('.png') or filename.endswith('.jpg'):
+        frame_path = os.path.join(frames_dir, filename)
+        frame = cv2.imread(frame_path)
+        out.write(frame)
+
+# Release the video writer and destroy all windows
+out.release()
+cv2.destroyAllWindows()
 
 
 # def delete_images():
